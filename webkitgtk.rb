@@ -14,6 +14,10 @@ class Webkitgtk < Formula
 
   depends_on :x11
   depends_on 'xz'
+  depends_on 'gtk+'
+  depends_on 'pango'
+  depends_on 'cairo'
+  depends_on 'harfbuzz'
   depends_on 'zlib'
   depends_on 'libsoup'
   depends_on 'glib'
@@ -27,7 +31,7 @@ class Webkitgtk < Formula
   end
 
   def install
-    ENV['PKG_CONFIG_PATH'] = "/usr/local/opt/harfbuzz/lib/pkgconfig:/usr/local/opt/pango/lib/pkgconfig:/opt/X11/lib/pkgconfig:#{ENV['PKG_CONFIG_PATH']}"
+    ENV['PKG_CONFIG_PATH'] = "/usr/local/opt/gtk+/lib/pkgconfig:/usr/local/opt/harfbuzz/lib/pkgconfig:/usr/local/opt/pango/lib/pkgconfig:/opt/X11/lib/pkgconfig:#{ENV['PKG_CONFIG_PATH']}"
     system 'sed -i -e "s/echo -n/\/bin\/echo -n/g" Source/WebCore/GNUmakefile.am'
     system 'sed -i -e "s/PLATFORM(MAC)/OS(DARWIN)/g" Source/WTF/wtf/InlineASM.h \
                 Source/JavaScriptCore/heap/VTableSpectrum.cpp \
