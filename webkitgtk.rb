@@ -12,7 +12,7 @@ class Webkitgtk < Formula
   depends_on 'automake' => :build
   depends_on 'libtool' => :build
 
-  depends_on :x11
+  #depends_on :x11
   depends_on 'xz'
   depends_on 'zlib'
   depends_on 'libsoup'
@@ -27,6 +27,7 @@ class Webkitgtk < Formula
   end
 
   def install
+    ENV['PKG_CONFIG_PATH'] = "/opt/X11/lib/pkgconfig"
     system 'sed -i -e "s/echo -n/\/bin\/echo -n/g" Source/WebCore/GNUmakefile.am'
     system 'sed -i -e "s/PLATFORM(MAC)/OS(DARWIN)/g" Source/WTF/wtf/InlineASM.h \
                 Source/JavaScriptCore/heap/VTableSpectrum.cpp \
@@ -38,7 +39,6 @@ class Webkitgtk < Formula
                           "--disable-jit", # https://bugs.webkit.org/show_bug.cgi?id=99732
                           "--with-gtk=2.0", "--disable-webkit2",
                           "--prefix=#{prefix}"
-    ENV['PKG_CONFIG_PATH'] = "/opt/X11/lib/pkgconfig"
     system "make install V=1"
   end
 
