@@ -38,6 +38,7 @@ class Webkitgtk < Formula
                           "--disable-jit", # https://bugs.webkit.org/show_bug.cgi?id=99732
                           "--with-gtk=2.0", "--disable-webkit2",
                           "--prefix=#{prefix}"
+    ENV['PKG_CONFIG_PATH'] = "/opt/X11/lib/pkgconfig"
     system "make install V=1"
   end
 
